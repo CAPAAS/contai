@@ -7,7 +7,6 @@ module Contai
           super({
             url: webhook_url,
             method: :post,
-            headers: { "Content-Type" => "application/json" },
             body_template: { prompt: "{{prompt}}" },
             response_path: options[:response_path] || "output"
           }.merge(options))

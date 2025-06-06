@@ -7,6 +7,13 @@ Contai.configure do |config|
     
     # Request timeout in seconds
     config.timeout = 30
+
+    # Default headers for HTTP requests
+    config.default_headers = {
+      "Content-Type" => "application/json",
+      # Uncomment and set your default Authorization header if needed
+      # "Authorization" => "Bearer #{ENV['DEFAULT_API_KEY']}"
+    }
   end
   
   # Configure your AI providers here:

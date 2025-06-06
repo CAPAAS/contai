@@ -10,7 +10,7 @@ module Contai
         method = (@options[:method] || :post).to_s.downcase
         
         request_options = {
-          headers: @options[:headers] || { "Content-Type" => "application/json" },
+          headers: Contai.configuration.default_headers.merge(@options[:headers] || {}),
           timeout: @options[:timeout] || Contai.configuration.timeout
         }
 

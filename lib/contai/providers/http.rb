@@ -9,9 +9,10 @@ module Contai
         url = @options[:url] || raise(ArgumentError, "HTTP provider requires :url option")
         method = (@options[:method] || :post).to_s.downcase
         
+        default_headers = Contai.configuration&.default_headers || { "Content-Type" => "application/json" }
         request_options = {
-          headers: Contai.configuration.default_headers.merge(@options[:headers] || {}),
-          timeout: @options[:timeout] || Contai.configuration.timeout
+          headers: default_headers.merge(@options[:headers] || {}),
+          timeout: @options[:timeout] || Contai.configuration&.timeout || 30
         }
 
         body_data = @options[:body_template] || { prompt: prompt }

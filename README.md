@@ -64,6 +64,7 @@ provider :claude,
 ```ruby
 provider :n8n,
   webhook_url: "https://your-n8n-instance.com/webhook/your-webhook-id",
+  headers: { "Authorization" => "Bearer #{ENV['N8N_API_KEY']}" },
   response_path: "output"
 ```
 
@@ -87,6 +88,59 @@ Contai.configure do |config|
   config.default_provider = :openai
   config.default_template = "Generate content based on: {{prompt}}"
   config.timeout = 30
+  
+  # Configure default headers for all HTTP-based providers
+  config.default_headers = {
+    "Content-Type" => "application/json",
+    "Authorization" => "Bearer #{ENV['DEFAULT_API_KEY']}"
+  }
+end
+```
+
+### HTTP Headers Configuration
+
+You can configure HTTP headers in three ways:
+
+1. Global default headers in the initializer (applies to all HTTP-based providers):
+```ruby
+Contai.configure do |config|
+  config.default_headers = {
+    "Content-Type" => "application/json",
+    "Authorization" => "Bearer #{ENV['DEFAULT_API_KEY']}"
+  }
+end
+```
+
+2. Provider-specific headers in your model:
+```ruby
+contai do
+  provider :http,
+    url: "https://api.example.com/generate",
+    headers: { "Authorization" => "Bearer #{ENV['SPECIFIC_API_KEY']}" }
+end
+```
+
+3. Combining both - provider headers will be merged with default headers:
+```ruby
+# In config/initializers/contai.rb
+Contai.configure do |config|
+  config.default_headers = {
+    "Content-Type" => "application/json",
+    "X-API-Version" => "v1"
+  }
+end
+
+# In your model
+contai do
+  provider :n8n,
+    webhook_url: "https://your-n8n-instance.com/webhook/id",
+    headers: { "Authorization" => "Bearer #{ENV['N8N_API_KEY']}" }
+    # Final headers will be:
+    # {
+    #   "Content-Type" => "application/json",
+    #   "X-API-Version" => "v1",
+    #   "Authorization" => "Bearer ..."
+    # }
 end
 ```
 

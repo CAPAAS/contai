@@ -9,8 +9,9 @@ Gem::Specification.new do |spec|
   spec.email = ["apanasenkov@capaa.ru"]
 
   spec.summary = "Gem for generating AI content for rails models"
-  spec.description = "Gem for generating AI content for rails models"
+  spec.description = "A Ruby on Rails gem that provides seamless integration with AI services to automatically generate content for your Rails models. It offers a simple interface to enhance your models with AI-generated content, supporting various content types and customization options."
   spec.homepage = "https://github.com/capaas/contai"
+  spec.license = "Unlicense"
   spec.required_ruby_version = ">= 3.0.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
@@ -29,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rails", ">= 6.0"
+  spec.add_dependency "rails", "~> 6.0"
   spec.add_dependency "httparty", "~> 0.20"
   
   spec.add_development_dependency "rspec", "~> 3.0"
